@@ -93,3 +93,44 @@ FVARIABLE reg2
 : dlcosh ( f: a b -- cosh(a) b*sinh(a) )
 	fover fsinh f* fswap fcosh fswap
 ;
+
+: dltanh ( f: a b -- tanh(a) b/cosh^2(a) )
+	fover fcosh fdup f* f/
+	fswap ftanh fswap
+;
+
+: dl** ( f: dl1 dl2 -- dl1^dl2 = (e^(ln(dl1)*dl2)) )
+	dlswap dlln dl* dlexp
+;
+
+: dlacos ( f: a1 b1 -- acos(a) -b/sqrt(1-a*a)) 
+	fnegate fover fdup f* fnegate 1e0 f+ fsqrt f/ 
+	fswap facos fswap
+;
+
+: dlasin ( f: a1 b1 -- asin(a) b/sqrt(1-a*a) )
+	fover fdup f* fnegate 1e0 f+ fsqrt f/ 
+	fswap fasom fswap
+;
+
+: dlatan ( f: a1 b1 -- atan(a) b/(1+a^2) )
+	fover fdup f* 1e0 f+ f/ fswap fatan fswap
+;
+
+: dlasinh ( f: a1 b1 -- asinh(a) b/sqrt(1+a*a) )
+	fover fdup f* 1e0 f+ fsqrt f/ 
+	fswap fasinh fswap
+;
+
+: dlacosh ( f: a1 b1 -- acosh(a) b/sqrt(a*a-1) )
+	fover fdup f* -1e0 f+ fsqrt f/ 
+	fswap facosh fswap
+;
+
+: dlatanh ( f: a1 b1 -- atanh(a) b/(1-a*a) )
+	fover fdup f* fnegate 1e0 f+ f/
+	fswap fatanh fswap
+;
+
+\ TODO: add pointer long versions! Use REAL and DUAL together to get em
+\	Maybe add a GETDUAL and use stacked versions?
