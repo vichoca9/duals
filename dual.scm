@@ -31,13 +31,13 @@
 	(make-dual (+ a1 a2) (+ b1 b2))
 )
 ; sum apply
-(define (dl+_v2 dl1 dl2)
+(define (dl+ dl1 dl2)
 	(dl_f dl+_v dl1 dl2)
 )
 
-(define (dl+ dl1 . lst )
-	(dl_apply dl+ dl+_v2 dl1 lst)
-) 
+;(define (dl+ dl1 . lst )
+;	(dl_apply dl+ dl+_v2 dl1 lst)
+;) 
 ; ##### sum
 
 ; ##### sub
@@ -46,13 +46,13 @@
 	(make-dual (- a1 a2) (- b1 b2))
 )
 ; sub apply
-(define (dl-_v2 dl1 dl2)
+(define (dl- dl1 dl2)
 	(dl_f dl-_v dl1 dl2)
 )
 
-(define (dl- dl1 . lst )
-	(dl_apply dl- dl-_v2 dl1 lst)
-)
+;(define (dl- dl1 . lst )
+;	(dl_apply dl- dl-_v2 dl1 lst)
+;)
 ; ##### sub
 
 ; ##### mul
@@ -60,13 +60,13 @@
 	(make-dual (* a1 a2 ) (+ (* a1 b2) (* b1 a2)))
 )
 
-(define (dl*_v2 dl1 dl2)
+(define (dl* dl1 dl2)
 	(dl_f dl*_v dl1 dl2)
 )
 
-(define (dl* dl1 . lst )
-	(dl_apply dl* dl*_v2 dl1 lst)
-)
+;(define (dl* dl1 . lst )
+;	(dl_apply dl* dl*_v2 dl1 lst)
+;)
 ; ##### mul
 
 ; ##### scalar_mul
@@ -90,16 +90,22 @@
 ; #### scalar div
 
 ; ##### div
-; div uses mul!!
-(define (dl/_v2 dl1 dl2)
-	(dl/k (dl_f dl*_v dl1 (dl-conj dl2)) 
-		(* (dl-real dl2) (dl-real dl2))
+; div uses mul!! --> SLOW
+
+(define (dl/_v a1 b1 a2 b2 c)
+	(make-dual (/ (* a1 b2) c) 
+		(/ (- (* b1 a2) (* a1 b2)) c)
 	)
 )
-
-(define (dl/ dl1 . lst )
-	(dl_apply dl/ dl/_v2 dl1 lst)
+;inline all operations!!
+(define (dl/ dl1 dl2)
+	(dl/_v (dl-real dl1) (dl-dual dl1) 
+		(dl-real dl2) (dl-dual dl2) (square (dl-real dl2)))
 )
+
+;(define (dl/ dl1 . lst )
+;	(dl_apply dl/ dl/_v2 dl1 lst)
+;)
 ; ##### div
 
 ; ##### exp

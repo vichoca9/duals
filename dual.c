@@ -2,10 +2,12 @@
 #include <math.h>
 #include <dual.h>
 
+/*
 typedef struct dual_num {
 	float real;
 	float dual;
 } dual_num;
+*/
 
 dual_num dl_add(dual_num dl1, dual_num dl2) {
 	dual_num dl3;
