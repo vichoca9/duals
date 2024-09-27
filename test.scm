@@ -59,7 +59,7 @@
 )
 
 ; do test 10000 times
-(define NTEST 20000)
+(define NTEST 10000)
 ; holy moly my mind is spinning...
 (define (repeat-test f)
 	(do ((n 1 (+ n 1)) (v 0 (+ v (benchmark f))))
@@ -78,3 +78,7 @@
 		(close-res outfile)
 	)
 )
+
+(display "Doing tests...\n")
+(do-tests (make-dual 1.0 1.0) (make-dual 1.0 0.0) (out)) 
+(display "Test written at: results-scheme.txt\n")

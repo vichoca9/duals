@@ -32,7 +32,7 @@
 )
 ; sum apply
 (define (dl+ dl1 dl2)
-	(dl_f dl+_v dl1 dl2)
+	(dl+_v (dl-real dl1) (dl-dual dl1) (dl-real dl2) (dl-dual dl2))
 )
 
 ;(define (dl+ dl1 . lst )
@@ -47,7 +47,7 @@
 )
 ; sub apply
 (define (dl- dl1 dl2)
-	(dl_f dl-_v dl1 dl2)
+	(dl-_v (dl-real dl1) (dl-dual dl1) (dl-real dl2) (dl-dual dl2))
 )
 
 ;(define (dl- dl1 . lst )
@@ -61,7 +61,7 @@
 )
 
 (define (dl* dl1 dl2)
-	(dl_f dl*_v dl1 dl2)
+	(dl*_v (dl-real dl1) (dl-dual dl1) (dl-real dl2) (dl-dual dl2))
 )
 
 ;(define (dl* dl1 . lst )
